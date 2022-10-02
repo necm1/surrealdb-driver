@@ -8,11 +8,6 @@ import * as WebSocket from 'ws';
  */
 export class ConnectionHandler {
   /**
-   * @type {boolean}
-   */
-  private _authenticated = false;
-
-  /**
    * Store exceptions by error codes
    *
    * @type {{code: number, exception: Error}[]}
@@ -90,7 +85,6 @@ export class ConnectionHandler {
    */
   public async send<T, K = any>(method: string, params?: T): Promise<K> {
     if (!this.provider.connection || !this._isConnected) {
-      console.log('test');
       return new Promise<K>((resolve) => resolve({} as K));
     }
 
@@ -104,24 +98,24 @@ export class ConnectionHandler {
 
     this.provider.connection.send(JSON.stringify(request));
 
-    this.provider.connection.onmessage = async (e) => {
-      await this.handleMessage(e);
-    };
+    return new Promise<K>((resolve) => {
+      this.provider.connection.onmessage = async (e) => {
+        await this.handleMessage(e);
 
-    return this._records[Number(request.id)] as K;
+        resolve(this._records[Number(request.id)] as K);
+      };
+    });
   }
 
   /**
    * Handle incoming message
    *
-   * @private
+   * @public
    * @async
    * @param {WebSocket.MessageEvent} e
    */
-  private async handleMessage(e: WebSocket.MessageEvent): Promise<void> {
+  public async handleMessage(e: WebSocket.MessageEvent): Promise<void> {
     const response = JSON.parse(e.data as string);
-
-    console.log(`RPC > Receiving: ${JSON.stringify(response)}`);
 
     if ('error' in response) {
       const exception = this._exceptions.filter(
@@ -130,10 +124,6 @@ export class ConnectionHandler {
 
       if (!exception || exception.length === 0) {
         throw new UnknownException(response.error.code, response.error.message);
-      }
-
-      if (exception[0].exception instanceof AuthenticationException) {
-        this._authenticated = false;
       }
 
       throw exception[0].exception;

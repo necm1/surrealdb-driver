@@ -19,14 +19,18 @@ export class Surreal {
 
     const provider = new ConnectionProvider(options);
     this._connectionHandler = new ConnectionHandler(provider);
+
+    provider.connection.on('open', async () => {
+      await this.signIn();
+    });
   }
 
   /**
-   * @public
+   * @private
    * @async
    * @returns {Promise<string>}
    */
-  public async signIn(): Promise<string> {
+  private async signIn(): Promise<string> {
     const result = await this._connectionHandler.send<
       {
         NS: string;
@@ -50,9 +54,20 @@ export class Surreal {
       resolve(result);
     });
   }
+
+  /**
+   * Select table or record
+   *
+   * @public
+   * @async
+   * @param table Table or record name
+   * @returns {Promise<T>}
+   */
+  public async select<T>(table: string): Promise<T> {
+    return await this._connectionHandler.send<string, T>('select', table);
+  }
 }
 
 (async () => {
   const surreal = new Surreal();
-  await surreal.signIn();
 })();
