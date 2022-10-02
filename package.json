@@ -1,0 +1,30 @@
+{
+  "name": "surreal",
+  "version": "1.0.0",
+  "description": "Surreal RPC Wrapper",
+  "main": "dist/surreal.js",
+  "scripts": {
+    "surreal:start": "node .",
+    "surreal:watch": "nodemon",
+    "surreal:build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/necm1/surreal.js.git"
+  },
+  "keywords": [],
+  "author": "necm1 (https://github.com/necm1)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/necm1/surreal.js/issues"
+  },
+  "homepage": "https://github.com/necm1/surreal.js#readme",
+  "devDependencies": {
+    "@types/node": "^18.7.23",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1"
+  }
+}
