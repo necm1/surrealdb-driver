@@ -1,6 +1,5 @@
 import {ClientOptions} from 'src/interface/client-options.interface';
 import * as WebSocket from 'ws';
-import {ConnectionHandler} from './connection-handler';
 
 /**
  * @class ConnectionProvider
@@ -11,21 +10,7 @@ export class ConnectionProvider {
    *
    * @type {WebSocket}
    */
-  private _ws: WebSocket;
-
-  /**
-   * @type {ConnectionHandler}
-   */
-  private connectionHandler: ConnectionHandler = new ConnectionHandler();
-
-  /**
-   * @type {[key: string]: Function}
-   */
-  private handlerMethods: {[key: string]: Function} = {
-    error: this.connectionHandler.onError,
-    open: this.connectionHandler.onOpen,
-    close: this.connectionHandler.onClose,
-  };
+  private _ws: WebSocket = new WebSocket(this.getEndpoint());
 
   /**
    * Client constructor
@@ -33,20 +18,7 @@ export class ConnectionProvider {
    * @constructor
    * @param {ClientOptions} options
    */
-  constructor(private readonly options?: ClientOptions) {
-    this._ws = new WebSocket(this.getEndpoint());
-
-    this.assignEvents();
-  }
-
-  /**
-   * @private
-   */
-  private assignEvents(): void {
-    Object.keys(this.handlerMethods).forEach((e) =>
-      this._ws.addEventListener(e, this.handlerMethods[e].bind(this))
-    );
-  }
+  constructor(private readonly options?: ClientOptions) {}
 
   /**
    * @returns {string}
