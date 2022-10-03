@@ -9,7 +9,7 @@ That's why I started to create my own "wrapper" / driver with a better & readabl
 
 ## Example
 
-Example of how to `select` from `users` table:
+Example of how to `select` from `persons` table:
 
 ```
 (async () => {
