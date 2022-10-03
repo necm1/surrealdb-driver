@@ -1,8 +1,9 @@
 {
-  "name": "surreal.js",
+  "name": "surrealdb-driver",
   "version": "1.0.0",
   "description": "JavaScript Surreal Driver",
   "main": "dist/surreal.js",
+  "types": "dist/surreal.d.ts",
   "scripts": {
     "surreal:start": "node .",
     "surreal:watch": "nodemon",
@@ -10,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/necm1/surreal.js.git"
+    "url": "git+https://github.com/necm1/surrealdb-driver.git"
   },
   "keywords": ["surreal", "database driver", "websockets", "surrealdb rpc", "surrealdb"],
   "author": "necm1 (https://github.com/necm1)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/necm1/surreal.js/issues"
+    "url": "https://github.com/necm1/surrealdb-driver/issues"
   },
-  "homepage": "https://github.com/necm1/surreal.js#readme",
+  "homepage": "https://github.com/necm1/surrealdb-driver#readme",
   "devDependencies": {
     "@types/node": "^18.7.23",
     "typescript": "^4.8.4"

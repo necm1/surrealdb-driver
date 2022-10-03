@@ -1,6 +1,6 @@
-# Surreal.js
+# surrealdb-driver
 
-This package provides a asynchronously "RPC-Wrapper" for SurrealDB using `ws`.
+This package provides a asynchronously "RPC-Wrapper" / driver for SurrealDB using `ws`.
 
 ## Why?
 
