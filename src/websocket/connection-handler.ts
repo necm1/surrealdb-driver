@@ -125,7 +125,7 @@ export class ConnectionHandler {
     const record: Record = {
       id: await this.generateID(),
       method,
-      params: Array.isArray(params) ? params : [params],
+      params: params ? (Array.isArray(params) ? params : [params]) : [],
     };
 
     if (!this.provider.connection || !this._isConnected) {
