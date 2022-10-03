@@ -1,7 +1,7 @@
 {
-  "name": "surreal",
+  "name": "surreal.js",
   "version": "1.0.0",
-  "description": "Surreal RPC Wrapper",
+  "description": "JavaScript Surreal Driver",
   "main": "dist/surreal.js",
   "scripts": {
     "surreal:start": "node .",
@@ -12,9 +12,9 @@
     "type": "git",
     "url": "git+https://github.com/necm1/surreal.js.git"
   },
-  "keywords": [],
+  "keywords": ["surreal", "database driver", "websockets", "surrealdb rpc", "surrealdb"],
   "author": "necm1 (https://github.com/necm1)",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/necm1/surreal.js/issues"
   },
