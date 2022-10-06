@@ -2,6 +2,9 @@ import {ClientOptions} from './interface/client-options.interface';
 import {ConnectionHandler} from './websocket/connection-handler';
 import {ConnectionProvider} from './websocket/connection-provider';
 
+/**
+ * @class Surreal
+ */
 export class Surreal {
   /**
    * @type {ConnectionHandler}
@@ -15,7 +18,8 @@ export class Surreal {
    */
   constructor(private readonly options: ClientOptions) {
     this._connectionHandler = new ConnectionHandler(
-      new ConnectionProvider(options)
+      new ConnectionProvider(options),
+      options.logger && options.logger.log ? options.logger.factory : undefined
     );
   }
 
