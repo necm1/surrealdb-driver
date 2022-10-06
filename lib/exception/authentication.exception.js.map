@@ -1,0 +1,1 @@
+{"version":3,"file":"authentication.exception.js","sourceRoot":"","sources":["../../src/exception/authentication.exception.ts"],"names":[],"mappings":";;;AAIA,MAAa,uBAAwB,SAAQ,KAAK;IAMhD;QACE,KAAK,CAAC,yCAAyC,CAAC,CAAC;QAEjD,IAAI,CAAC,IAAI,GAAG,uBAAuB,CAAC,IAAI,CAAC;IAC3C,CAAC;CACF;AAXD,0DAWC"}

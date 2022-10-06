@@ -1,13 +1,13 @@
 {
   "name": "surrealdb-driver",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "JavaScript Surreal Driver",
-  "main": "dist/surreal.js",
-  "types": "dist/surreal.d.ts",
+  "main": "lib/surreal.js",
+  "types": "lib/surreal.d.ts",
   "scripts": {
-    "surreal:start": "node .",
-    "surreal:watch": "nodemon",
-    "surreal:build": "tsc"
+    "start": "node .",
+    "watch": "nodemon",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
