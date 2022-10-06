@@ -4,7 +4,8 @@ import {Record} from '../interface/record.interface';
 import {Response} from '../interface/response.interface';
 import {AuthenticationException} from '../exception/authentication.exception';
 import {UnknownException} from '../exception/unknown.exception';
-import {RequestQueue} from 'src/interface/request-queue.interface';
+import {RequestQueue} from '../interface/request-queue.interface';
+import {ClientOptionsLogger} from '../interface/client-options.interface';
 
 /**
  * @class ConnectionHandler
@@ -59,8 +60,12 @@ export class ConnectionHandler {
    *
    * @constructor
    * @param {ConnectionProvider} provider
+   * @param {ClientOptionsLogger} logger
    */
-  constructor(public readonly provider: ConnectionProvider) {
+  constructor(
+    public readonly provider: ConnectionProvider,
+    private readonly logger?: ClientOptionsLogger
+  ) {
     this.assignEvents();
   }
 
@@ -103,7 +108,12 @@ export class ConnectionHandler {
    */
   private async sendPayload(record: Record): Promise<any> {
     return new Promise((resolve) => {
-      this.provider.connection.send(JSON.stringify(record));
+      const payload = JSON.stringify(record);
+      this.provider.connection.send(payload);
+
+      if (this.logger && this.logger.log) {
+        this.logger.log(payload);
+      }
 
       this.provider.connection.onmessage = async (e) => {
         await this.handleMessage(e);
@@ -146,6 +156,10 @@ export class ConnectionHandler {
    */
   public async handleMessage(e: WebSocket.MessageEvent): Promise<void> {
     const response = JSON.parse(e.data as string) as Response;
+
+    if (this.logger && this.logger.log) {
+      this.logger.log(e.data);
+    }
 
     if ('error' in response) {
       const exception = this._exceptions.filter(
@@ -192,7 +206,11 @@ export class ConnectionHandler {
    * @public
    * @param {any} e
    */
-  public onError(e: any): void {}
+  public onError(e: any): void {
+    if (this.logger && this.logger.error) {
+      this.logger.error(e);
+    }
+  }
 
   /**
    * Handle close
@@ -204,6 +222,10 @@ export class ConnectionHandler {
     if (this._pingInterval) {
       clearInterval(this._pingInterval);
     }
+
+    if (this.logger && this.logger.log) {
+      this.logger.log('Connection closed');
+    }
   }
 
   /**
@@ -213,6 +235,10 @@ export class ConnectionHandler {
    */
   public onOpen(): void {
     this._isConnected = true;
+
+    if (this.logger && this.logger.log) {
+      this.logger.log(`Successfully connected`);
+    }
 
     if (!this._pingInterval) {
       this._pingInterval = setInterval(

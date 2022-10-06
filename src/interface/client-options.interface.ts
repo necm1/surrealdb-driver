@@ -36,4 +36,20 @@ export interface ClientOptions {
    * @type {boolean}
    */
   ssl: boolean;
+
+  /**
+   * @type {ClientOptionsLogger}
+   */
+  logger?: {
+    log?: boolean;
+    factory: ClientOptionsLogger;
+  };
+}
+
+/**
+ * @interface ClientOptionsLogger
+ */
+export interface ClientOptionsLogger {
+  log?: Function;
+  error?: Function;
 }
