@@ -1,6 +1,6 @@
 {
   "name": "surrealdb-driver",
-  "version": "1.0.2.1",
+  "version": "1.0.3",
   "description": "JavaScript Surreal Driver",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
