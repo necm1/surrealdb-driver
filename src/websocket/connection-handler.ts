@@ -77,7 +77,7 @@ export class ConnectionHandler {
     this.provider.connection.addEventListener('error', (e: any) =>
       this.onError(e)
     );
-    this.provider.connection.addEventListener('open', (e: any) =>
+    this.provider.connection.addEventListener('close', (e: any) =>
       this.onClose(e)
     );
   }
