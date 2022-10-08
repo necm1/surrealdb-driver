@@ -1,4 +1,5 @@
 import {ClientOptions} from './interface/client-options.interface';
+import {QueryResult} from './interface/query-result.interface';
 import {ConnectionHandler} from './websocket/connection-handler';
 import {ConnectionProvider} from './websocket/connection-provider';
 
@@ -123,13 +124,24 @@ export class Surreal {
    * @async
    * @param {string} query Query statement
    * @param {[key: string]: any} vars Query variables used in statement
+   * @param {boolean} raw Get raw response
    * @returns {Promise<T>}
    */
-  public async query<T>(query: string, vars: {[key: string]: any}): Promise<T> {
-    return await this._connectionHandler.send<
+  public async query<T>(
+    query: string,
+    vars: {[key: string]: any},
+    raw = false
+  ): Promise<T[] | QueryResult<T>[]> {
+    const result = await this._connectionHandler.send<
       [string, {[key: string]: any}],
-      T
+      QueryResult<T>[]
     >('query', [query, vars]);
+
+    if (raw) {
+      return result;
+    }
+
+    return result[0].result;
   }
 
   /**

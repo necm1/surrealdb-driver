@@ -1,4 +1,5 @@
 import { ClientOptions } from './interface/client-options.interface';
+import { QueryResult } from './interface/query-result.interface';
 export declare class Surreal {
     private readonly options;
     private _connectionHandler;
@@ -12,7 +13,7 @@ export declare class Surreal {
     let(key: string, value: string): Promise<void>;
     query<T>(query: string, vars: {
         [key: string]: any;
-    }): Promise<T>;
+    }, raw?: boolean): Promise<T[] | QueryResult<T>[]>;
     select<T>(table: string): Promise<T[]>;
     create<T extends Record<string, unknown>>(table: string, data?: T): Promise<T>;
     update<T extends Record<string, unknown>>(table: string, data?: T): Promise<T>;
